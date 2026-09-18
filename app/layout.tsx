@@ -1,4 +1,9 @@
-import "./globals.css";
+import './globals.css';
+
+export const metadata = {
+  title: 'Birthday Website',
+  description: 'Create personalized birthday wishes',
+};
 
 export default function RootLayout({
   children,
