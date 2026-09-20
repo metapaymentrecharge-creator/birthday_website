@@ -525,14 +525,17 @@ export default function Home() {
       )}
 
       {youtubeId && isSongPlaying && (
-        <iframe
-          width="0"
-          height="0"
-          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&loop=1&playlist=${youtubeId}&controls=0`}
-          frameBorder="0"
-          allow="autoplay"
-          style={{ display: "none" }}
-        ></iframe>
+        <div className="fixed bottom-4 left-4 z-[999] bg-black/80 p-2 rounded-2xl shadow-2xl backdrop-blur-xl border border-white/20 flex items-center gap-3">
+          <div className="text-[10px] text-white font-bold pl-2">Playing YouTube Audio 🎵</div>
+          <iframe
+            width="140"
+            height="40"
+            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&loop=1&playlist=${youtubeId}&enablejsapi=1`}
+            frameBorder="0"
+            allow="autoplay; encrypted-media"
+            style={{ borderRadius: "12px", border: "none" }}
+          ></iframe>
+        </div>
       )}
 
       {/* ================= HOME ================= */}
