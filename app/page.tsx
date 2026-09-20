@@ -623,8 +623,8 @@ export default function Home() {
                   )}
                 </div>
 
-                <TextInput label="Their name" placeholder="e.g. Muskan" value={partnerName} onChange={setPartnerName} />
-                <TextInput label="Your name" placeholder="e.g. Vikas" value={yourName} onChange={setYourName} />
+                <TextInput label="Their name" placeholder="e.g. Jhon" value={partnerName} onChange={setPartnerName} />
+                <TextInput label="Your name" placeholder="e.g. Alex" value={yourName} onChange={setYourName} />
                 <TextInput label="Their age" placeholder="e.g. 25" type="number" value={age} onChange={setAge} />
                 <div>
   <label className="mb-2 block text-sm font-bold">Born on 📅</label>
