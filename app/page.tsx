@@ -718,8 +718,13 @@ export default function Home() {
                       setSongUrl(url);
                       if (!url) { setYoutubeId(null); setSongName(""); return; }
                       const yId = getYouTubeId(url);
-                      if (yId) { setYoutubeId(yId); setSongName("YouTube Song Selected"); }
-                      else { setYoutubeId(null); setSongName("Linked Audio Track"); }
+                      if (yId) { 
+                        setYoutubeId(yId); 
+                        setSongName("YouTube Song Selected"); 
+                      } else { 
+                        setYoutubeId(null); 
+                        setSongName("Linked Audio Track"); 
+                      }
                     }}
                     placeholder="Paste YouTube link or direct .mp3 URL"
                     className="modern-input mt-3 w-full"
