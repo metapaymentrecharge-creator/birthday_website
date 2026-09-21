@@ -407,7 +407,45 @@ export default function Home() {
     setStep("payment");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+const loadScript = (src: string) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
 
+  const displayRazorpay = async () => {
+    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+
+    if (!res) {
+      alert("Razorpay SDK failed to load. Check your internet connection.");
+      return;
+    }
+
+    const options = {
+      key: "rzp_live_TehDrtwanRQfQv",
+      amount: 199 * 100, // ₹199 in paise
+      currency: "INR",
+      name: "Sigma Beryl Wishes",
+      description: "Custom Birthday Web App",
+      handler: async function (response: any) {
+        await goFinal();
+      },
+      prefill: {
+        name: yourName,
+        contact: whatsapp,
+      },
+      theme: {
+        color: "#f43f5e",
+      },
+    };
+
+    const paymentObject = new (window as any).Razorpay(options);
+    paymentObject.open();
+  };
   const goFinal = async () => {
     try {
       const { data, error } = await supabase.from("birthday_wishes").insert([
@@ -915,7 +953,7 @@ export default function Home() {
 
               <button
                 type="button"
-                onClick={goFinal}
+                onClick={displayRazorpay}
                 className="shine-button mt-7 w-full rounded-2xl bg-gradient-to-r from-pink-500 via-purple-500 to-sky-500 py-5 text-sm font-black text-white shadow-xl shadow-purple-200 transition transform hover:scale-[1.02] active:scale-95 cursor-pointer touch-manipulation"
               >
                 PAY ₹199 & CREATE THE SURPRISE FOR YOUR SPECIAL ONE❤️ →
