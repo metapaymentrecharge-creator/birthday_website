@@ -431,6 +431,22 @@ export default function Home() {
       }
 
       if (data && data.length > 0) {
+        const insertedId = data[0].id;
+        const shareableLink = `${window.location.origin}/?id=${insertedId}`;
+        
+        // WhatsApp message encode karke URL banana
+        const whatsappMessage = encodeURIComponent(`Maine tumhare liye ek special birthday surprise banaya hai! Yahan click karke dekho: ${shareableLink}`);
+        const whatsappUrl = `https://wa.me/?text=${whatsappMessage}`;
+
+        // User ko link copy karne ka option + WhatsApp par direct bhejane ka prompt/confirm
+        const openWa = confirm("Payment successful! Wish link taiyar hai.\n\nOK dabao agar seedha WhatsApp par share karna hai, ya Cancel dabao link copy karne ke liye.");
+        
+        if (openWa) {
+          window.open(whatsappUrl, "_blank");
+        } else {
+          prompt("Yeh raha tumhara unique link, ise copy kar lo:", shareableLink);
+        }
+
         setStep("final");
         setOpened(false);
         setFinalPage(0);
