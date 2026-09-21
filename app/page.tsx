@@ -427,7 +427,7 @@ const loadScript = (src: string) => {
 
     const options = {
       key: "rzp_live_TehDrtwanRQfQv", // Live Key ID
-      amount: 199 * 100, // ₹199 in paise
+      amount: 1 * 100, // ₹199 in paise
       currency: "INR",
       name: "Sigma Beryl Wishes",
       description: "Custom Birthday Web App",
