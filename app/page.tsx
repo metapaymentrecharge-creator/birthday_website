@@ -784,6 +784,7 @@ useEffect(() => {
                     <input type="file" accept="audio/*" className="hidden" onChange={handleSong} />
                   </label>
                   {songName && <p className="mt-2 rounded-xl bg-emerald-50 px-4 py-3 text-xs font-bold text-emerald-500">✓ {songName}</p>}
+                  <p className="text-xs text-gray-500 mb-1 ml-1">Paste 30 sec song link for better experience</p>
                   <input
                     value={songUrl.startsWith("blob:") ? "" : songUrl}
                     onChange={(e) => {
@@ -799,7 +800,7 @@ useEffect(() => {
                         setSongName("Linked Audio Track"); 
                       }
                     }}
-                    placeholder="Paste 30 sec song link for better experience"
+                    placeholder="Paste YouTube link or direct .mp3 URL"
                     className="modern-input mt-3 w-full"
                   />
                 </div>
