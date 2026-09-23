@@ -482,19 +482,13 @@ const loadScript = (src: string) => {
   const openSurprise = async () => {
     setOpened(true);
     setFinalPage(0);
-    setTimeout(async () => {
-      if (youtubeId) {
-        setIsSongPlaying(true);
-      } else if (audioRef.current && songUrl) {
-        try {
-          audioRef.current.currentTime = 0;
-          await audioRef.current.play();
-          setIsSongPlaying(true);
-        } catch {
-          setIsSongPlaying(false);
-        }
+    setIsSongPlaying(true);
+    if (youtubeId) {
+      const iframe = document.querySelector("iframe");
+      if (iframe) {
+        iframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&loop=1&playlist=${youtubeId}&enablejsapi=1`;
       }
-    }, 250);
+    }
   };
 useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -602,14 +596,15 @@ useEffect(() => {
       )}
 
       {youtubeId && isSongPlaying && (
-        <div className="fixed bottom-4 left-4 z-[999] bg-black/95 p-3.5 rounded-2xl shadow-2xl backdrop-blur-xl border border-white/40 flex items-center gap-3">
-          <div className="text-[11px] text-white font-bold pl-1">🎵 Song</div>
-          <a
-            href={`https://www.youtube.com/watch?v=${youtubeId}`}
-            className="rounded-xl bg-red-600 px-4 py-2 text-xs font-black text-white shadow-lg active:scale-95 transition"
-          >
-            ▶ CLICK TO PLAY
-          </a>
+        <div className="fixed bottom-4 left-4 z-[999] bg-black/90 p-3 rounded-2xl shadow-2xl backdrop-blur-xl border border-white/30 flex items-center gap-3">
+          <div className="text-[10px] text-white font-bold pl-1">Playing YouTube 🎵</div>
+          <iframe
+            width="160"
+            height="45"
+            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&loop=1&playlist=${youtubeId}&enablejsapi=1`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            style={{ borderRadius: "12px", border: "none" }}
+          ></iframe>
         </div>
       )}
 
