@@ -799,7 +799,7 @@ useEffect(() => {
                         setSongName("Linked Audio Track"); 
                       }
                     }}
-                    placeholder="Paste YouTube link or direct .mp3 URL"
+                    placeholder="Paste 30 sec song link for better experience"
                     className="modern-input mt-3 w-full"
                   />
                 </div>
