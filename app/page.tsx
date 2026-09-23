@@ -496,7 +496,43 @@ const loadScript = (src: string) => {
       }
     }, 250);
   };
+useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    if (!id) return;
 
+    const fetchWish = async () => {
+      const { data, error } = await supabase
+        .from("birthday_wishes")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      if (error) {
+        console.error("Error fetching wish:", error);
+        return;
+      }
+
+      if (data) {
+        setPartnerName(data.partner_name || "");
+        setYourName(data.your_name || "");
+        setRelationship(data.relationship || "");
+        setAge(data.age || "");
+        setDob(data.dob || "");
+        setMessage(data.message || "");
+        setThemeId(data.theme_id || "blush");
+        setSongUrl(data.song_url || "");
+        setPhotos(data.photos || []);
+        
+        setStep("final");
+        setOpened(true);
+        setFinalPage(0);
+      }
+    };
+
+    fetchWish();
+  }, []);
+  
   useEffect(() => {
     if (step !== "final" || !opened) return;
     const delay = finalPage === 0 ? 6500 : 4500;
