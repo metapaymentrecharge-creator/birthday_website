@@ -523,7 +523,10 @@ useEffect(() => {
         setThemeId(data.theme_id || "blush");
         setSongUrl(data.song_url || "");
         setPhotos(data.photos || []);
-        
+        const yId = getYouTubeId(data.song_url || "");
+        if (yId) {
+          setYoutubeId(yId);
+        }
         setStep("final");
         setOpened(true);
         setFinalPage(0);
@@ -532,7 +535,7 @@ useEffect(() => {
 
     fetchWish();
   }, []);
-  
+
   useEffect(() => {
     if (step !== "final" || !opened) return;
     const delay = finalPage === 0 ? 6500 : 4500;
@@ -599,14 +602,13 @@ useEffect(() => {
       )}
 
       {youtubeId && isSongPlaying && (
-        <div className="fixed bottom-4 left-4 z-[999] bg-black/80 p-2 rounded-2xl shadow-2xl backdrop-blur-xl border border-white/20 flex items-center gap-3">
-          <div className="text-[10px] text-white font-bold pl-2">Playing YouTube Audio 🎵</div>
+        <div className="fixed bottom-4 left-4 z-[999] bg-black/85 p-3 rounded-2xl shadow-2xl backdrop-blur-xl border border-white/20 flex items-center gap-3">
+          <div className="text-[10px] text-white font-bold pl-1">Playing YouTube 🎵</div>
           <iframe
-            width="140"
-            height="40"
+            width="160"
+            height="45"
             src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&loop=1&playlist=${youtubeId}&enablejsapi=1`}
-            frameBorder="0"
-            allow="autoplay; encrypted-media"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             style={{ borderRadius: "12px", border: "none" }}
           ></iframe>
         </div>
