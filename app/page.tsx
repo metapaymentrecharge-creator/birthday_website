@@ -248,7 +248,6 @@ export default function Home() {
   const [age, setAge] = useState("");
   const [dob, setDob] = useState("");
   const [message, setMessage] = useState("");
-  const [whatsapp, setWhatsapp] = useState("");
 
   const removePhoto = (index: number) => {
     setPhotos((prev) => prev.filter((_, i) => i !== index));
@@ -268,7 +267,6 @@ export default function Home() {
     setAge("");
     setDob("");
     setMessage("");
-    setWhatsapp("");
     setPhotos([]);
     setPhotoTransforms([]);
     setAdjustPhotoIndex(null);
@@ -393,7 +391,6 @@ export default function Home() {
     if (!message.trim()) { alert("Personal message likho 💌"); return false; }
     if (photos.length === 0) { alert("Kam se kam 1 photo upload karo 📸"); return false; }
     if (!songUrl && !youtubeId) { alert("Song upload karo ya direct YouTube link add karo 🎵"); return false; }
-    if (!whatsapp.trim()) { alert("WhatsApp number enter karo 📱"); return false; }
     return true;
   };
 
@@ -437,7 +434,6 @@ const loadScript = (src: string) => {
       },
       prefill: {
         name: yourName,
-        contact: whatsapp,
       },
       theme: {
         color: "#f43f5e",
@@ -457,7 +453,7 @@ const loadScript = (src: string) => {
           age: age,
           dob: dob,
           message: message,
-          whatsapp: whatsapp,
+          whatsapp: "",
           theme_id: themeId,
           song_url: songUrl,
           photos: photos,
@@ -473,15 +469,12 @@ const loadScript = (src: string) => {
         const insertedId = data[0].id;
         const shareableLink = `${window.location.origin}/?id=${insertedId}`;
         
-        // WhatsApp message encode karke URL banana
-        const whatsappMessage = encodeURIComponent(`Maine tumhare liye ek special birthday surprise banaya hai! Yahan click karke dekho: ${shareableLink}`);
-        const whatsappUrl = `https://wa.me/?text=${whatsappMessage}`;
-
-        // User ko link copy karne ka option + WhatsApp par direct bhejane ka prompt/confirm
-        const openWa = confirm("Payment successful! Wish link taiyar hai.\n\nOK dabao agar seedha WhatsApp par share karna hai, ya Cancel dabao link copy karne ke liye.");
+        // Yahin par link ke sath WhatsApp share ka option de diya hai
+        const waMsg = encodeURIComponent(`Maine tumhare liye ek special birthday surprise banaya hai! Yahan click karke dekho: ${shareableLink}`);
+        const openWa = confirm(`Payment successful! 🟢\n\nOK dabao WhatsApp par share karne ke liye, ya Cancel dabao link copy karne ke liye.`);
         
         if (openWa) {
-          window.open(whatsappUrl, "_blank");
+          window.open(`https://wa.me/?text=${waMsg}`, "_blank");
         } else {
           prompt("Yeh raha tumhara unique link, ise copy kar lo:", shareableLink);
         }
@@ -789,7 +782,6 @@ const loadScript = (src: string) => {
                   />
                 </div>
 
-                <TextInput label="WhatsApp number 📱" placeholder="10 digit WhatsApp number" type="tel" value={whatsapp} onChange={setWhatsapp} />
               </div>
 
               <div className="space-y-5">
